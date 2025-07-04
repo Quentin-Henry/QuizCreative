@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creative Personality Compass</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --text-primary: #2a2a2a;
+        --text-secondary: #5a5a5a;
+        --text-tertiary: #8a8a8a;
+        --bg-primary: #fefefe;
+        --bg-secondary: #f9f9f9;
+        --bg-tertiary: #f3f3f3;
+        --accent: #6366f1;
+        --accent-light: #e0e7ff;
+        --accent-warm: #f59e0b;
+        --warm-bg: #fef3e7;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 32px 24px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 64px;
+      }
+
+      .title {
+        font-family: "Crimson Text", serif;
+        font-size: 3rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+      }
+
+      .subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.5;
+      }
+
+      .section {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 48px;
+      }
+
+      .progress-container {
+        margin-bottom: 48px;
+        text-align: center;
+      }
+
+      .progress-text {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        margin-bottom: 12px;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+        text-transform: uppercase;
+      }
+
+      .progress-bar {
+        width: 100%;
+        max-width: 200px;
+        height: 3px;
+        background: var(--bg-tertiary);
+        border-radius: 1.5px;
+        overflow: hidden;
+        margin: 0 auto;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--accent);
+        transition: width 0.8s ease;
+        border-radius: 1.5px;
+      }
+
+      .question-container {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: all 0.6s ease;
+        text-align: center;
+      }
+
+      .question-container.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .question-symbol {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin-bottom: 24px;
+        display: block;
+      }
+
+      .question-illustration {
+        width: 120px;
+        height: 120px;
+        background: var(--warm-bg);
+        border-radius: 60px;
+        margin: 0 auto 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--accent-warm);
+        transition: all 0.3s ease;
+      }
+
+      .question-number {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      .question-title {
+        font-family: "Crimson Text", serif;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 48px;
+        color: var(--text-primary);
+        line-height: 1.3;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 48px;
+      }
+
+      .options {
+        list-style: none;
+        margin-bottom: 48px;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 48px;
+      }
+
+      .option {
+        margin-bottom: 16px;
+      }
+
+      .option label {
+        display: block;
+        padding: 20px 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 400;
+        line-height: 1.6;
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        text-align: left;
+        border-radius: 8px;
+        padding: 20px 24px;
+        background: transparent;
+        position: relative;
+      }
+
+      .option label:hover {
+        background: var(--warm-bg);
+        color: var(--text-primary);
+        transform: translateX(4px);
+      }
+
+      .option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .option input[type="radio"]:checked + label {
+        background: var(--accent-light);
+        color: var(--text-primary);
+        font-weight: 500;
+        transform: translateX(8px);
+      }
+
+      .option label::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--text-tertiary);
+        margin-right: 16px;
+        transition: all 0.3s ease;
+        vertical-align: middle;
+        margin-top: -2px;
+      }
+
+      .option input[type="radio"]:checked + label::before {
+        background: var(--accent);
+        transform: scale(1.5);
+      }
+
+      .button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 32px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: block;
+        margin: 0 auto;
+        font-family: inherit;
+        letter-spacing: 0.025em;
+      }
+
+      .button:hover {
+        background: #4f46e5;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      }
+
+      .button:disabled {
+        background: var(--text-tertiary);
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .intro-screen,
+      .results-screen {
+        text-align: center;
+      }
+
+      .intro-description {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-bottom: 48px;
+        line-height: 1.6;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 48px;
+      }
+
+      .results-header {
+        margin-bottom: 64px;
+      }
+
+      .results-type {
+        font-family: "Crimson Text", serif;
+        font-size: 3.5rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--accent);
+        line-height: 1.1;
+      }
+
+      .results-tagline {
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        font-style: italic;
+        margin-bottom: 48px;
+        font-weight: 300;
+      }
+
+      .results-illustration {
+        width: 160px;
+        height: 160px;
+        background: var(--warm-bg);
+        border-radius: 80px;
+        margin: 0 auto 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: var(--accent-warm);
+      }
+
+      .personality-compass {
+        margin: 48px 0;
+        display: flex;
+        gap: 48px;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .axis-grid {
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+      }
+
+      .axis-title {
+        font-family: "Crimson Text", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 24px;
+        color: var(--text-primary);
+      }
+
+      .grid {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+      }
+
+      .grid-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .grid-line-h {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--bg-tertiary);
+      }
+
+      .grid-line-v {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: var(--bg-tertiary);
+      }
+
+      .grid-line-h:nth-child(1) {
+        top: 50px;
+      }
+      .grid-line-h:nth-child(2) {
+        top: 100px;
+      }
+      .grid-line-h:nth-child(3) {
+        top: 150px;
+      }
+
+      .grid-line-v:nth-child(4) {
+        left: 50px;
+      }
+      .grid-line-v:nth-child(5) {
+        left: 100px;
+      }
+      .grid-line-v:nth-child(6) {
+        left: 150px;
+      }
+
+      .axis-labels {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+      }
+
+      .axis-label {
+        position: absolute;
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .axis-label.top {
+        top: -24px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .axis-label.bottom {
+        bottom: -24px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .axis-label.left {
+        left: -40px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .axis-label.right {
+        right: -40px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .personality-dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: var(--accent);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+      }
+
+      .scope-scale {
+        flex: 0 0 auto;
+        min-width: 120px;
+      }
+
+      .scale-container {
+        background: var(--bg-secondary);
+        border-radius: 60px;
+        padding: 16px;
+        height: 200px;
+        width: 40px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .scale-track {
+        width: 8px;
+        height: 168px;
+        background: var(--bg-tertiary);
+        border-radius: 4px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .scale-indicator {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: var(--accent-warm);
+        border-radius: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        animation: pulse-warm 2s infinite;
+      }
+
+      @keyframes pulse-warm {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+      }
+
+      .scale-labels {
+        position: absolute;
+        left: 50px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+
+      .scale-label {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .results-description {
+        font-size: 1.125rem;
+        line-height: 1.7;
+        color: var(--text-primary);
+        margin-bottom: 48px;
+        text-align: left;
+        max-width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 48px;
+      }
+
+      .results-stats {
+        background: var(--warm-bg);
+        padding: 32px;
+        border-radius: 16px;
+        margin-bottom: 48px;
+        text-align: center;
+      }
+
+      .results-rarity {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+        font-weight: 500;
+      }
+
+      .results-examples {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .share-section {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .share-title {
+        font-family: "Crimson Text", serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 24px;
+        color: var(--text-primary);
+      }
+
+      .share-buttons {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .share-button {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        padding: 12px 24px;
+        border-radius: 24px;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .share-button:hover {
+        background: var(--accent-light);
+        color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .cta {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        text-align: center;
+        line-height: 1.6;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .cta a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .cta a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding: 24px 20px;
+        }
+
+        .title {
+          font-size: 2.5rem;
+        }
+
+        .question-title {
+          font-size: 1.75rem;
+        }
+
+        .results-type {
+          font-size: 2.5rem;
+        }
+
+        .personality-compass {
+          flex-direction: column;
+          gap: 32px;
+          align-items: center;
+        }
+
+        .axis-grid {
+          min-width: auto;
+        }
+
+        .scale-labels {
+          position: relative;
+          left: auto;
+          flex-direction: row;
+          justify-content: space-between;
+          padding: 8px 0;
+          margin-top: 16px;
+        }
+
+        .scale-container {
+          width: 200px;
+          height: 40px;
+        }
+
+        .scale-track {
+          width: 168px;
+          height: 8px;
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.8s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Intro Screen -->
+      <div id="intro-screen" class="intro-screen">
+        <div class="header">
+          <h1 class="title">Creative Personality Compass</h1>
+          <p class="subtitle">
+            Discover how you approach creativity, what drives your work, and
+            where you fit in the creative landscape
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="question-illustration">🎨</div>
+          <p class="intro-description">
+            Through 16 thoughtful questions about your creative process and
+            philosophy, we'll map your unique position across three key
+            dimensions: how you work, what motivates you, and the scope of your
+            creative vision.
+          </p>
+          <button class="button" onclick="startQuiz()">Begin Assessment</button>
+        </div>
+
+        <div class="cta">
+          <p>
+            Assessment created by <a href="#" target="_blank">Your Name</a>,
+            exploring the intersection of personality and creative expression
+          </p>
+        </div>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div id="quiz-screen" class="hidden">
+        <div class="progress-container">
+          <div class="progress-text">
+            Question <span id="current-question">1</span> of 16
+          </div>
+          <div class="progress-bar">
+            <div
+              id="progress-fill"
+              class="progress-fill"
+              style="width: 6.25%"
+            ></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div id="question-container" class="question-container active">
+            <span class="question-symbol" id="question-symbol">◦</span>
+            <div class="question-number" id="question-number">Question One</div>
+            <div class="question-illustration" id="question-illustration">
+              💭
+            </div>
+            <h2 class="question-title" id="question-title">
+              Loading question...
+            </h2>
+            <ul class="options" id="options-list">
+              <!-- Options will be populated by JavaScript -->
+            </ul>
+            <button
+              class="button"
+              id="next-button"
+              onclick="nextQuestion()"
+              disabled
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div id="results-screen" class="hidden results-screen">
+        <div class="results-header">
+          <div class="results-illustration" id="results-illustration">🎯</div>
+          <h1 class="results-type" id="results-type">THE EXPLORER</h1>
+          <p class="results-tagline" id="results-tagline">
+            "Following the thread"
+          </p>
+        </div>
+
+        <div class="personality-compass">
+          <div class="axis-grid">
+            <div class="axis-title">Creative Approach</div>
+            <div class="grid">
+              <div class="grid-lines">
+                <div class="grid-line-h"></div>
+                <div class="grid-line-h"></div>
+                <div class="grid-line-h"></div>
+                <div class="grid-line-v"></div>
+                <div class="grid-line-v"></div>
+                <div class="grid-line-v"></div>
+              </div>
+              <div class="axis-labels">
+                <div class="axis-label top">Outcome</div>
+                <div class="axis-label bottom">Process</div>
+                <div class="axis-label left">Intuitive</div>
+                <div class="axis-label right">Systematic</div>
+              </div>
+              <div class="personality-dot" id="personality-dot"></div>
+            </div>
+          </div>
+
+          <div class="scope-scale">
+            <div class="axis-title">Creative Scope</div>
+            <div class="scale-container">
+              <div class="scale-track">
+                <div class="scale-indicator" id="scope-indicator"></div>
+              </div>
+              <div class="scale-labels">
+                <div class="scale-label">Universal</div>
+                <div class="scale-label">Personal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="results-description" id="results-description">
+            You're part of the 15% of creatives who find meaning in the process
+            itself...
+          </div>
+
+          <div class="results-stats">
+            <div class="results-rarity" id="results-rarity">
+              Rarity: 15% of creative professionals
+            </div>
+            <div class="results-examples" id="results-examples">
+              Famous Explorers: Alice Neel, Tom Waits, Miranda July, David Lynch
+            </div>
+          </div>
+        </div>
+
+        <div class="share-section">
+          <h3 class="share-title">Share Your Results</h3>
+          <div class="share-buttons">
+            <button class="share-button" onclick="shareResults('twitter')">
+              Share on Twitter
+            </button>
+            <button class="share-button" onclick="shareResults('instagram')">
+              Share Image
+            </button>
+            <button class="share-button" onclick="copyResults()">
+              Copy Link
+            </button>
+          </div>
+        </div>
+
+        <div class="cta">
+          <p>
+            Want to explore how your creative personality could shape your next
+            project?
+            <a href="#" target="_blank"
+              >Let's discuss how understanding your type can guide your work.</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data (same as before)
+      const questions = [
+        {
+          id: 1,
+          symbol: "◦",
+          illustration: "🚀",
+          title: "When you start a new creative project, you typically:",
+          options: [
+            {
+              text: "Follow whatever feels compelling in the moment",
+              scores: { intuitive: 1, process: 1 },
+            },
+            {
+              text: "Research what similar creators have done successfully",
+              scores: { systematic: 1, outcome: 1 },
+            },
+            {
+              text: "Trust your instincts but plan the final result",
+              scores: { intuitive: 1, outcome: 1 },
+            },
+            {
+              text: "Create a detailed methodology and timeline",
+              scores: { systematic: 1, process: 1 },
+            },
+          ],
+        },
+        {
+          id: 2,
+          symbol: "◦",
+          illustration: "🏠",
+          title: "Your ideal creative workspace would be:",
+          options: [
+            {
+              text: "Organized chaos where you can see everything",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Clean, systematic setup optimized for efficiency",
+              scores: { universal: 1, systematic: 1 },
+            },
+            {
+              text: "Comfortable space filled with personal meaning",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Professional setup that could inspire anyone",
+              scores: { universal: 1, outcome: 1 },
+            },
+          ],
+        },
+        {
+          id: 3,
+          symbol: "◦",
+          illustration: "🧩",
+          title: "When you encounter a creative problem, you prefer to:",
+          options: [
+            {
+              text: "Experiment until something clicks",
+              scores: { intuitive: 1, process: 1 },
+            },
+            {
+              text: "Apply proven methods and refine",
+              scores: { systematic: 1, outcome: 1 },
+            },
+            {
+              text: "Trust your gut but research the solution",
+              scores: { intuitive: 1, outcome: 1 },
+            },
+            {
+              text: "Develop a systematic approach you can reuse",
+              scores: { systematic: 1, process: 1 },
+            },
+          ],
+        },
+        {
+          id: 4,
+          symbol: "◦",
+          illustration: "⚡",
+          title: "Your relationship to creative 'mistakes' is:",
+          options: [
+            {
+              text: "They're where the real discoveries happen",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "They're learning opportunities toward better outcomes",
+              scores: { universal: 1, outcome: 1 },
+            },
+            {
+              text: "They're part of authentic expression",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "They're data points for improving your system",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 5,
+          symbol: "◦",
+          illustration: "💡",
+          title: "You're most energized by creative work that:",
+          options: [
+            {
+              text: "Helps you understand yourself better",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Solves problems for many people",
+              scores: { universal: 1, outcome: 1 },
+            },
+            {
+              text: "Expresses something only you can say",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Creates frameworks others can build on",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 6,
+          symbol: "◦",
+          illustration: "👥",
+          title: "When sharing work-in-progress, you prefer:",
+          options: [
+            {
+              text: "Showing close friends who understand your process",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Getting feedback from your target audience",
+              scores: { universal: 1, outcome: 1 },
+            },
+            {
+              text: "Sharing when it feels authentic to you",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Testing with people who can improve your method",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 7,
+          symbol: "◦",
+          illustration: "🏆",
+          title: "Your ideal creative legacy would be:",
+          options: [
+            {
+              text: "Work that speaks deeply to specific people",
+              scores: { personal: 1, outcome: 1 },
+            },
+            {
+              text: "Methods that help many others create",
+              scores: { universal: 1, process: 1 },
+            },
+            {
+              text: "Honest documentation of your personal journey",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Timeless solutions still used years later",
+              scores: { universal: 1, outcome: 1 },
+            },
+          ],
+        },
+        {
+          id: 8,
+          symbol: "◦",
+          illustration: "✨",
+          title: "You're most satisfied when your creative work:",
+          options: [
+            {
+              text: "Surprises even you",
+              scores: { intuitive: 1, process: 1 },
+            },
+            {
+              text: "Achieves its intended impact",
+              scores: { systematic: 1, outcome: 1 },
+            },
+            {
+              text: "Feels completely authentic",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Contributes to something larger",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 9,
+          symbol: "◦",
+          illustration: "🔍",
+          title: "Your approach to creative inspiration is:",
+          options: [
+            {
+              text: "Stay open and let it find you",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Systematically expose yourself to new inputs",
+              scores: { universal: 1, systematic: 1 },
+            },
+            {
+              text: "Focus on your personal experiences and reactions",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Study what resonates with your intended audience",
+              scores: { universal: 1, outcome: 1 },
+            },
+          ],
+        },
+        {
+          id: 10,
+          symbol: "◦",
+          illustration: "🤝",
+          title: "When collaborating, you prefer:",
+          options: [
+            {
+              text: "Working with people who share your vision",
+              scores: { personal: 1, outcome: 1 },
+            },
+            {
+              text: "Building systems that help the team create",
+              scores: { universal: 1, process: 1 },
+            },
+            {
+              text: "Bringing your authentic perspective to the mix",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Contributing skills that serve the larger goal",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 11,
+          symbol: "◦",
+          illustration: "📊",
+          title: "You judge creative success primarily by:",
+          options: [
+            {
+              text: "How true it feels to your vision",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "How effectively it serves its purpose",
+              scores: { universal: 1, systematic: 1 },
+            },
+            {
+              text: "How much you learned making it",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "How well it connects with its intended audience",
+              scores: { universal: 1, outcome: 1 },
+            },
+          ],
+        },
+        {
+          id: 12,
+          symbol: "◦",
+          illustration: "⏱️",
+          title: "Your ideal creative pace is:",
+          options: [
+            {
+              text: "Following natural rhythms and energy",
+              scores: { intuitive: 1, process: 1 },
+            },
+            {
+              text: "Steady progress toward defined goals",
+              scores: { systematic: 1, outcome: 1 },
+            },
+            {
+              text: "Organic development with planned milestones",
+              scores: { intuitive: 1, outcome: 1 },
+            },
+            {
+              text: "Systematic exploration with built-in iteration",
+              scores: { systematic: 1, process: 1 },
+            },
+          ],
+        },
+        {
+          id: 13,
+          symbol: "◦",
+          illustration: "💬",
+          title: "You prefer creative feedback that:",
+          options: [
+            {
+              text: "Helps you understand your own intentions better",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Confirms your work serves its purpose",
+              scores: { universal: 1, outcome: 1 },
+            },
+            {
+              text: "Validates your authentic expression",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Improves your systematic approach",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 14,
+          symbol: "◦",
+          illustration: "🎯",
+          title: "Your ideal audience for your work is:",
+          options: [
+            {
+              text: "People who deeply understand your personal perspective",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "Anyone who could benefit from what you're exploring",
+              scores: { universal: 1, process: 1 },
+            },
+            {
+              text: "A specific community that shares your values",
+              scores: { personal: 1, outcome: 1 },
+            },
+            {
+              text: "The broadest possible group who needs this solution",
+              scores: { universal: 1, systematic: 1 },
+            },
+          ],
+        },
+        {
+          id: 15,
+          symbol: "◦",
+          illustration: "✅",
+          title: "When your creative work is 'done,' it typically:",
+          options: [
+            {
+              text: "Feels like it's captured something true about your experience",
+              scores: { personal: 1, outcome: 1 },
+            },
+            {
+              text: "Provides a useful framework others can apply",
+              scores: { universal: 1, process: 1 },
+            },
+            {
+              text: "Represents where you were in that moment",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "Solves the problem it was designed to address",
+              scores: { universal: 1, outcome: 1 },
+            },
+          ],
+        },
+        {
+          id: 16,
+          symbol: "◦",
+          illustration: "📈",
+          title: "Your relationship to creative trends is:",
+          options: [
+            {
+              text: "You follow your own path regardless",
+              scores: { personal: 1, intuitive: 1 },
+            },
+            {
+              text: "You study them to understand broader patterns",
+              scores: { universal: 1, systematic: 1 },
+            },
+            {
+              text: "You engage when they serve your exploration",
+              scores: { personal: 1, process: 1 },
+            },
+            {
+              text: "You consider how they affect your work's reception",
+              scores: { universal: 1, outcome: 1 },
+            },
+          ],
+        },
+      ];
+
+      const types = {
+        "personal-intuitive-process": {
+          name: "THE EXPLORER",
+          tagline: '"Following the thread"',
+          illustration: "🧭",
+          rarity: "15%",
+          examples: "Alice Neel, Tom Waits, Miranda July, David Lynch",
+          description: `You're part of the 15% of creatives who find meaning in the process itself. Like Alice Neel and David Lynch, you're drawn to authentic personal discovery through making.
+
+Your creative personality celebrates authentic expression through visible process. You trust intuition, value the unexpected, and make work primarily for self-understanding. You follow natural rhythms and find beauty in the journey over the destination.
+
+You're energized by work that helps you understand yourself better, and you prefer sharing with close friends who understand your process. Your ideal legacy would be honest documentation of your personal creative journey.`,
+        },
+        "personal-intuitive-outcome": {
+          name: "THE DOCUMENTARIAN",
+          tagline: '"Capturing authentic moments"',
+          illustration: "📸",
+          rarity: "12%",
+          examples: "Nan Goldin, Anthony Bourdain, Patti Smith, Spike Jonze",
+          description: `You're part of the 12% of creatives who share personal truth through polished work. Like Nan Goldin and Anthony Bourdain, you intuitively capture real experience and craft it for impact.
+
+Your creative approach combines authentic personal perspective with intentional presentation. You trust your instincts about what matters but care deeply about how it reaches others. You believe your specific story connects to something universal.
+
+You're most satisfied when your work feels completely authentic while achieving meaningful connection with your intended audience. Your ideal legacy would be work that speaks deeply to specific people.`,
+        },
+        "personal-systematic-process": {
+          name: "THE RESEARCHER",
+          tagline: '"Deep personal inquiry"',
+          illustration: "🔬",
+          rarity: "10%",
+          examples: "Sol LeWitt, Jenny Holzer, Ira Glass, David Foster Wallace",
+          description: `You're part of the 10% of creatives who methodically explore personal obsessions. Like Sol LeWitt and Ira Glass, you build systematic frameworks for self-understanding.
+
+Your creative approach is process-driven and methodical, but focused on personal inquiry. You develop systems for exploring what fascinates you, finding satisfaction in how much you learn through making. You prefer feedback that helps you understand your own intentions better.
+
+You judge success by how much you learned in the process, and you're energized by work that helps you understand yourself better. Your ideal legacy would be honest documentation of your personal journey.`,
+        },
+        "personal-systematic-outcome": {
+          name: "THE CRAFTSPERSON",
+          tagline: '"Perfecting personal vision"',
+          illustration: "🛠️",
+          rarity: "18%",
+          examples:
+            "Georgia O'Keeffe, Hayao Miyazaki, Wes Anderson, Annie Leibovitz",
+          description: `You're part of the 18% of creatives who methodically refine distinctive personal aesthetics. Like Georgia O'Keeffe and Wes Anderson, you systematically develop your unique way of seeing.
+
+Your creative approach combines systematic development with deeply personal vision. You work steadily toward defined goals while maintaining authentic expression. You care about both the integrity of your vision and the quality of its execution.
+
+You're most satisfied when your work feels completely authentic and achieves its intended impact. Your ideal legacy would be work that speaks deeply to specific people while representing the perfection of your unique aesthetic.`,
+        },
+        "universal-intuitive-process": {
+          name: "THE EMPATHIST",
+          tagline: '"Feeling what others need"',
+          illustration: "❤️",
+          rarity: "20%",
+          examples:
+            "Mr. Rogers, Maya Angelou, Pixar storytellers, therapeutic artists",
+          description: `You're part of the 20% of creatives who intuitively understand collective needs. Like Mr. Rogers and Maya Angelou, you sense what people need and explore how to provide it.
+
+Your creative approach is process-oriented and responsive to what feels missing in the world. You stay open to inspiration and follow natural rhythms while focusing on how your work can serve others. You find deep satisfaction in contributing to something larger than yourself.
+
+You're energized by work that helps many people, and you prefer sharing with anyone who could benefit from what you're exploring. Your ideal legacy would be methods that help many others create.`,
+        },
+        "universal-intuitive-outcome": {
+          name: "THE TRANSLATOR",
+          tagline: '"Making the complex accessible"',
+          illustration: "🌐",
+          rarity: "8%",
+          examples: "David Byrne, Neil deGrasse Tyson, Radiohead, Tim Burton",
+          description: `You're part of the 8% of creatives who intuitively communicate big ideas through polished work. Like David Byrne and Neil deGrasse Tyson, you feel complex truths and craft them for wide understanding.
+
+Your creative approach combines intuitive understanding with intentional communication. You trust your instincts about what matters but care deeply about making it accessible to broad audiences. You see yourself as a bridge between complexity and clarity.
+
+You're most satisfied when your work achieves its intended impact, and you judge success by how well it connects with its intended audience. Your ideal legacy would be timeless solutions that make complex ideas accessible to everyone.`,
+        },
+        "universal-systematic-process": {
+          name: "THE STRATEGIST",
+          tagline: '"Building frameworks for change"',
+          illustration: "⚙️",
+          rarity: "7%",
+          examples:
+            "Buckminster Fuller, Jane Jacobs, early Wikipedia contributors, systems designers",
+          description: `You're part of the 7% of creatives who systematically create tools and frameworks others can use. Like Buckminster Fuller and Jane Jacobs, you build reusable systems for creative and social change.
+
+Your creative approach is methodology-driven and focused on enabling others. You systematically expose yourself to new inputs and develop approaches that can be applied broadly. You find deep satisfaction in contributing to something larger than yourself.
+
+You're energized by creating frameworks others can build on, and you prefer testing with people who can improve your method. Your ideal legacy would be methods that help many others create meaningful work.`,
+        },
+        "universal-systematic-outcome": {
+          name: "THE ARCHITECT",
+          tagline: '"Designing timeless solutions"',
+          illustration: "🏛️",
+          rarity: "10%",
+          examples: "Dieter Rams, Tadao Ando, Steve Jobs, Massimo Vignelli",
+          description: `You're part of the 10% of creatives who systematically create enduring, widely resonant work. Like Dieter Rams and Steve Jobs, you seek universal principles and design solutions that stand the test of time.
+
+Your creative approach is methodical and outcome-focused, seeking perfect synthesis of form and function. You study broader patterns to understand what creates lasting impact, and you work steadily toward solutions that serve the broadest possible audience.
+
+You're most satisfied when your work achieves its intended impact, and you judge success by how effectively it serves its purpose. Your ideal legacy would be timeless solutions still used years later.`,
+        },
+      };
+
+      const questionNumbers = [
+        "Question One",
+        "Question Two",
+        "Question Three",
+        "Question Four",
+        "Question Five",
+        "Question Six",
+        "Question Seven",
+        "Question Eight",
+        "Question Nine",
+        "Question Ten",
+        "Question Eleven",
+        "Question Twelve",
+        "Question Thirteen",
+        "Question Fourteen",
+        "Question Fifteen",
+        "Question Sixteen",
+      ];
+
+      // Quiz state
+      let currentQuestion = 0;
+      let scores = {
+        intuitive: 0,
+        systematic: 0,
+        process: 0,
+        outcome: 0,
+        personal: 0,
+        universal: 0,
+      };
+      let selectedAnswers = [];
+
+      // Initialize quiz
+      function startQuiz() {
+        document.getElementById("intro-screen").classList.add("hidden");
+        document.getElementById("quiz-screen").classList.remove("hidden");
+        loadQuestion(0);
+      }
+
+      function loadQuestion(questionIndex) {
+        const question = questions[questionIndex];
+
+        // Update progress
+        const progressPercent = ((questionIndex + 1) / questions.length) * 100;
+        document.getElementById("current-question").textContent =
+          questionIndex + 1;
+        document.getElementById("progress-fill").style.width =
+          progressPercent + "%";
+
+        // Update question content
+        document.getElementById("question-symbol").textContent =
+          question.symbol;
+        document.getElementById("question-number").textContent =
+          questionNumbers[questionIndex];
+        document.getElementById("question-illustration").textContent =
+          question.illustration;
+        document.getElementById("question-title").textContent = question.title;
+
+        // Build options
+        const optionsList = document.getElementById("options-list");
+        optionsList.innerHTML = "";
+
+        question.options.forEach((option, index) => {
+          const li = document.createElement("li");
+          li.className = "option";
+          li.innerHTML = `
+                    <input type="radio" name="question-${question.id}" id="option-${index}" value="${index}">
+                    <label for="option-${index}">${option.text}</label>
+                `;
+          optionsList.appendChild(li);
+        });
+
+        // Add event listeners
+        const radioInputs = optionsList.querySelectorAll('input[type="radio"]');
+        radioInputs.forEach((input) => {
+          input.addEventListener("change", () => {
+            document.getElementById("next-button").disabled = false;
+          });
+        });
+
+        // Reset next button
+        document.getElementById("next-button").disabled = true;
+
+        // Animate question container
+        const container = document.getElementById("question-container");
+        container.classList.remove("active");
+        setTimeout(() => {
+          container.classList.add("active");
+        }, 100);
+      }
+
+      function nextQuestion() {
+        // Get selected answer
+        const selectedInput = document.querySelector(
+          `input[name="question-${questions[currentQuestion].id}"]:checked`
+        );
+        if (!selectedInput) return;
+
+        const selectedIndex = parseInt(selectedInput.value);
+        const selectedOption =
+          questions[currentQuestion].options[selectedIndex];
+
+        // Store answer
+        selectedAnswers[currentQuestion] = selectedIndex;
+
+        // Update scores
+        Object.keys(selectedOption.scores).forEach((dimension) => {
+          scores[dimension] += selectedOption.scores[dimension];
+        });
+
+        // Move to next question or show results
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          loadQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function calculatePersonalityType() {
+        // Determine primary axes
+        const isIntuitive = scores.intuitive > scores.systematic;
+        const isProcess = scores.process > scores.outcome;
+        const isPersonal = scores.personal > scores.universal;
+
+        // Build type key
+        const scope = isPersonal ? "personal" : "universal";
+        const approach = isIntuitive ? "intuitive" : "systematic";
+        const motivation = isProcess ? "process" : "outcome";
+
+        const typeKey = `${scope}-${approach}-${motivation}`;
+
+        return {
+          type: types[typeKey] || types["personal-intuitive-process"],
+          scores: scores,
+          isIntuitive,
+          isProcess,
+          isPersonal,
+        };
+      }
+
+      function showResults() {
+        const result = calculatePersonalityType();
+        const personalityType = result.type;
+
+        // Hide quiz screen
+        document.getElementById("quiz-screen").classList.add("hidden");
+
+        // Update results content
+        document.getElementById("results-illustration").textContent =
+          personalityType.illustration;
+        document.getElementById("results-type").textContent =
+          personalityType.name;
+        document.getElementById("results-tagline").textContent =
+          personalityType.tagline;
+        document.getElementById("results-description").textContent =
+          personalityType.description;
+        document.getElementById(
+          "results-rarity"
+        ).textContent = `Rarity: ${personalityType.rarity} of creative professionals`;
+        document.getElementById(
+          "results-examples"
+        ).textContent = `Famous ${personalityType.name.replace("THE ", "")}s: ${
+          personalityType.examples
+        }`;
+
+        // Position personality dot on grid
+        positionPersonalityDot(
+          result.scores,
+          result.isIntuitive,
+          result.isProcess
+        );
+
+        // Position scope indicator
+        positionScopeIndicator(result.scores, result.isPersonal);
+
+        // Show results screen
+        document.getElementById("results-screen").classList.remove("hidden");
+        document.getElementById("results-screen").classList.add("fade-in");
+      }
+
+      function positionPersonalityDot(scores, isIntuitive, isProcess) {
+        const dot = document.getElementById("personality-dot");
+
+        // Calculate position (0-200px grid)
+        const totalHorizontal = scores.intuitive + scores.systematic;
+        const totalVertical = scores.process + scores.outcome;
+
+        // X position: 0 = intuitive (left), 200 = systematic (right)
+        const x =
+          totalHorizontal > 0
+            ? (scores.systematic / totalHorizontal) * 200
+            : 100;
+
+        // Y position: 0 = outcome (top), 200 = process (bottom)
+        const y =
+          totalVertical > 0 ? (scores.process / totalVertical) * 200 : 100;
+
+        dot.style.left = x + "px";
+        dot.style.top = y + "px";
+      }
+
+      function positionScopeIndicator(scores, isPersonal) {
+        const indicator = document.getElementById("scope-indicator");
+
+        // Calculate position (0-168px track height)
+        const totalScope = scores.personal + scores.universal;
+
+        // Y position: 0 = universal (top), 168 = personal (bottom)
+        const y = totalScope > 0 ? (scores.personal / totalScope) * 168 : 84;
+
+        indicator.style.top = y + "px";
+      }
+
+      function shareResults(platform) {
+        const result = calculatePersonalityType();
+        const personalityType = result.type;
+        const url = window.location.href;
+        const text = `I'm ${personalityType.name} ${personalityType.tagline} - What's your creative personality type?`;
+
+        switch (platform) {
+          case "twitter":
+            window.open(
+              `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                text
+              )}&url=${encodeURIComponent(url)}`,
+              "_blank"
+            );
+            break;
+          case "instagram":
+            // For Instagram, we would generate an image - placeholder for now
+            alert(
+              "Instagram sharing would generate a custom image with your results!"
+            );
+            break;
+        }
+      }
+
+      function copyResults() {
+        const result = calculatePersonalityType();
+        const personalityType = result.type;
+        const text = `I took the Creative Personality Compass and I'm ${personalityType.name} ${personalityType.tagline}! Find out your creative type: ${window.location.href}`;
+
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            alert("Results copied to clipboard!");
+          })
+          .catch(() => {
+            alert("Unable to copy to clipboard. Please copy the URL manually.");
+          });
+      }
+
+      // Add keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        if (
+          e.key === "Enter" &&
+          !document.getElementById("next-button").disabled
+        ) {
+          nextQuestion();
+        }
+      });
+
+      // Add subtle accent color progression
+      function updateAccentColor() {
+        const progress = currentQuestion / questions.length;
+        const hue = 245 + progress * 30; // Blue to purple progression
+        document.documentElement.style.setProperty(
+          "--accent",
+          `hsl(${hue}, 70%, 55%)`
+        );
+        document.documentElement.style.setProperty(
+          "--accent-light",
+          `hsl(${hue}, 70%, 94%)`
+        );
+      }
+
+      // Auto-save progress to localStorage
+      function saveProgress() {
+        const progress = {
+          currentQuestion,
+          scores,
+          selectedAnswers,
+        };
+        localStorage.setItem(
+          "creativePersonalityQuiz",
+          JSON.stringify(progress)
+        );
+      }
+
+      function loadProgress() {
+        const saved = localStorage.getItem("creativePersonalityQuiz");
+        if (saved) {
+          const progress = JSON.parse(saved);
+          currentQuestion = progress.currentQuestion || 0;
+          scores = progress.scores || scores;
+          selectedAnswers = progress.selectedAnswers || [];
+
+          if (currentQuestion > 0) {
+            // Ask user if they want to continue
+            if (
+              confirm(
+                "You have a quiz in progress. Would you like to continue where you left off?"
+              )
+            ) {
+              document.getElementById("intro-screen").classList.add("hidden");
+              document.getElementById("quiz-screen").classList.remove("hidden");
+              loadQuestion(currentQuestion);
+            } else {
+              localStorage.removeItem("creativePersonalityQuiz");
+            }
+          }
+        }
+      }
+
+      // Initialize on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProgress();
+      });
+
+      // Save progress on each answer
+      const originalNextQuestion = nextQuestion;
+      nextQuestion = function () {
+        originalNextQuestion();
+        saveProgress();
+        updateAccentColor();
+      };
+    </script>
+  </body>
+</html>
