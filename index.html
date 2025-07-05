@@ -676,28 +676,21 @@
       <!-- Intro Screen -->
       <div id="intro-screen" class="intro-screen">
         <div class="header">
-          <h1 class="title">Creative Personality Compass</h1>
-          <p class="subtitle">
-            Discover how you approach creativity, what drives your work, and
-            where you fit in the creative landscape
-          </p>
+          <h1 class="title">What's your creative personality?</h1>
         </div>
 
         <div class="section">
           <div class="question-illustration">🎨</div>
           <p class="intro-description">
-            Through 16 thoughtful questions about your creative process and
-            philosophy, we'll map your unique position across three key
-            dimensions: how you work, what motivates you, and the scope of your
-            creative vision.
+            A few questions about how you work and what motivates you.
           </p>
-          <button class="button" onclick="startQuiz()">Begin Assessment</button>
+          <button class="button" onclick="startQuiz()">Find out</button>
         </div>
 
         <div class="cta">
           <p>
-            Assessment created by <a href="#" target="_blank">Your Name</a>,
-            exploring the intersection of personality and creative expression
+            Tool by <a href="#" target="_blank">Your Name</a> - curious how your
+            creative approach shapes your work?
           </p>
         </div>
       </div>
@@ -706,7 +699,7 @@
       <div id="quiz-screen" class="hidden">
         <div class="progress-container">
           <div class="progress-text">
-            Question <span id="current-question">1</span> of 16
+            <span id="current-question">1</span>/16
           </div>
           <div class="progress-bar">
             <div
@@ -805,7 +798,6 @@
         </div>
 
         <div class="share-section">
-          <h3 class="share-title">Share Your Results</h3>
           <div class="share-buttons">
             <button class="share-button" onclick="shareResults('twitter')">
               Share on Twitter
@@ -821,11 +813,8 @@
 
         <div class="cta">
           <p>
-            Want to explore how your creative personality could shape your next
-            project?
-            <a href="#" target="_blank"
-              >Let's discuss how understanding your type can guide your work.</a
-            >
+            Curious how your creative personality could inform your next
+            project? <a href="#" target="_blank">Let's talk.</a>
           </p>
         </div>
       </div>
@@ -1227,11 +1216,11 @@
           illustration: "🧭",
           rarity: "15%",
           examples: "Alice Neel, Tom Waits, Miranda July, David Lynch",
-          description: `You're part of the 15% of creatives who find meaning in the process itself. Like Alice Neel and David Lynch, you're drawn to authentic personal discovery through making.
+          description: `You find meaning in the process itself. You're drawn to authentic personal discovery through making, similar to how Alice Neel and David Lynch approached their work.
 
-Your creative personality celebrates authentic expression through visible process. You trust intuition, value the unexpected, and make work primarily for self-understanding. You follow natural rhythms and find beauty in the journey over the destination.
+Your creative approach celebrates authentic expression through visible process. You trust intuition, value the unexpected, and make work primarily for self-understanding. You follow natural rhythms and find beauty in the journey over the destination.
 
-You're energized by work that helps you understand yourself better, and you prefer sharing with close friends who understand your process. Your ideal legacy would be honest documentation of your personal creative journey.`,
+You're energized by work that helps you understand yourself better, and you prefer sharing with close friends who understand your process.`,
         },
         "personal-intuitive-outcome": {
           name: "THE DOCUMENTARIAN",
@@ -1239,11 +1228,11 @@ You're energized by work that helps you understand yourself better, and you pref
           illustration: "📸",
           rarity: "12%",
           examples: "Nan Goldin, Anthony Bourdain, Patti Smith, Spike Jonze",
-          description: `You're part of the 12% of creatives who share personal truth through polished work. Like Nan Goldin and Anthony Bourdain, you intuitively capture real experience and craft it for impact.
+          description: `You share personal truth through polished work. You intuitively capture real experience and craft it for impact, similar to how Nan Goldin and Anthony Bourdain approached their work.
 
 Your creative approach combines authentic personal perspective with intentional presentation. You trust your instincts about what matters but care deeply about how it reaches others. You believe your specific story connects to something universal.
 
-You're most satisfied when your work feels completely authentic while achieving meaningful connection with your intended audience. Your ideal legacy would be work that speaks deeply to specific people.`,
+You're most satisfied when your work feels completely authentic while achieving meaningful connection with your intended audience.`,
         },
         "personal-systematic-process": {
           name: "THE RESEARCHER",
@@ -1481,12 +1470,10 @@ You're most satisfied when your work achieves its intended impact, and you judge
           personalityType.description;
         document.getElementById(
           "results-rarity"
-        ).textContent = `Rarity: ${personalityType.rarity} of creative professionals`;
+        ).textContent = `About ${personalityType.rarity} of creatives work this way`;
         document.getElementById(
           "results-examples"
-        ).textContent = `Famous ${personalityType.name.replace("THE ", "")}s: ${
-          personalityType.examples
-        }`;
+        ).textContent = `Others who work like this: ${personalityType.examples}`;
 
         // Position personality dot on grid
         positionPersonalityDot(
