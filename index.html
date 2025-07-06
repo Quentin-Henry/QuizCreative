@@ -1461,6 +1461,56 @@ You work steadily toward defined goals while maintaining authentic expression, c
 
 You're most satisfied when your work feels completely authentic and achieves its intended impact.`,
         },
+        "universal-intuitive-process": {
+          name: "THE EMPATHIST",
+          tagline: '"Feeling what others need"',
+          accent: "accent-red",
+          rarity: "20%",
+          examples:
+            "Mr. Rogers, Maya Angelou, Pixar storytellers, therapeutic artists",
+          description: `You intuitively understand collective needs. Like Mr. Rogers and Maya Angelou, you sense what people need and explore how to provide it.
+
+Your creative approach is process-oriented and responsive to what feels missing in the world. You stay open to inspiration and follow natural rhythms while focusing on how your work can serve others.
+
+You're energized by work that helps many people, and you prefer sharing with anyone who could benefit from what you're exploring.`,
+        },
+        "universal-intuitive-outcome": {
+          name: "THE TRANSLATOR",
+          tagline: '"Making the complex accessible"',
+          accent: "accent-yellow",
+          rarity: "8%",
+          examples: "David Byrne, Neil deGrasse Tyson, Radiolab, Tim Burton",
+          description: `You intuitively communicate big ideas through polished work. Like David Byrne and Neil deGrasse Tyson, you feel complex truths and craft them for wide understanding.
+
+Your creative approach combines intuitive understanding with intentional communication. You trust your instincts about what matters but care deeply about making it accessible to broad audiences.
+
+You're most satisfied when your work achieves its intended impact, and you judge success by how well it connects with its intended audience.`,
+        },
+        "universal-systematic-process": {
+          name: "THE STRATEGIST",
+          tagline: '"Building frameworks for change"',
+          accent: "accent-blue",
+          rarity: "7%",
+          examples:
+            "Buckminster Fuller, Jane Jacobs, early Wikipedia contributors, systems designers",
+          description: `You systematically create tools and frameworks others can use. Like Buckminster Fuller and Jane Jacobs, you build reusable systems for creative and social change.
+
+Your creative approach is methodology-driven and focused on enabling others. You systematically expose yourself to new inputs and develop approaches that can be applied broadly.
+
+You're energized by creating frameworks others can build on, and you prefer testing with people who can improve your method.`,
+        },
+        "universal-systematic-outcome": {
+          name: "THE ARCHITECT",
+          tagline: '"Designing timeless solutions"',
+          accent: "accent-blue",
+          rarity: "10%",
+          examples: "Dieter Rams, Tadao Ando, Steve Jobs, Massimo Vignelli",
+          description: `You systematically create enduring, widely resonant work. Like Dieter Rams and Steve Jobs, you seek universal principles and design solutions that stand the test of time.
+
+Your creative approach is methodical and outcome-focused, seeking perfect synthesis of form and function. You study broader patterns to understand what creates lasting impact.
+
+You're most satisfied when your work achieves its intended impact, and you judge success by how effectively it serves its purpose.`,
+        },
       };
 
       // Quiz state
@@ -1598,19 +1648,69 @@ You're most satisfied when your work feels completely authentic and achieves its
       }
 
       function calculatePersonalityType() {
-        // Simplified for demo with available questions
         const isPersonal = scores.personal >= scores.universal;
         const isSystematic = scores.systematic >= scores.intuitive;
         const isOutcome = scores.outcome >= scores.process;
 
-        let typeKey = "personal-intuitive-process"; // Default
+        // Debug: Log the scores and calculations
+        console.log("Scores:", scores);
+        console.log(
+          "isPersonal:",
+          isPersonal,
+          "(personal:",
+          scores.personal,
+          "vs universal:",
+          scores.universal,
+          ")"
+        );
+        console.log(
+          "isSystematic:",
+          isSystematic,
+          "(systematic:",
+          scores.systematic,
+          "vs intuitive:",
+          scores.intuitive,
+          ")"
+        );
+        console.log(
+          "isOutcome:",
+          isOutcome,
+          "(outcome:",
+          scores.outcome,
+          "vs process:",
+          scores.process,
+          ")"
+        );
 
+        let typeKey;
+
+        // Handle all 8 possible combinations
         if (isPersonal && isSystematic && isOutcome) {
           typeKey = "personal-systematic-outcome";
         } else if (isPersonal && isSystematic && !isOutcome) {
           typeKey = "personal-systematic-process";
         } else if (isPersonal && !isSystematic && isOutcome) {
           typeKey = "personal-intuitive-outcome";
+        } else if (isPersonal && !isSystematic && !isOutcome) {
+          typeKey = "personal-intuitive-process";
+        } else if (!isPersonal && isSystematic && isOutcome) {
+          typeKey = "universal-systematic-outcome";
+        } else if (!isPersonal && isSystematic && !isOutcome) {
+          typeKey = "universal-systematic-process";
+        } else if (!isPersonal && !isSystematic && isOutcome) {
+          typeKey = "universal-intuitive-outcome";
+        } else {
+          // !isPersonal && !isSystematic && !isOutcome
+          typeKey = "universal-intuitive-process";
+        }
+
+        console.log("Calculated typeKey:", typeKey);
+        console.log("Type exists in types object:", !!types[typeKey]);
+
+        // Add fallback in case type doesn't exist
+        if (!types[typeKey]) {
+          console.error("Type not found! Falling back to default.");
+          typeKey = "personal-intuitive-process";
         }
 
         return {
