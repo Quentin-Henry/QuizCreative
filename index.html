@@ -812,7 +812,7 @@
       <!-- Intro Screen -->
       <div id="intro-screen" class="intro-screen">
         <div class="header">
-          <h1 class="title">What's Your Creative Personality</h1>
+          <h1 class="title">What's Your Creative Personality?</h1>
           <p class="subtitle">
             A systematic approach to understanding your creative process
           </p>
@@ -1005,7 +1005,7 @@
         "universal-systematic-outcome": "accent-blue",
       };
 
-      // Quiz data - All 16 questions from original
+      // REBALANCED Quiz data - Each type now has equal pathways (8 points each)
       const questions = [
         {
           id: 1,
@@ -1013,22 +1013,22 @@
           options: [
             {
               text: "Follow whatever feels compelling in the moment",
-              scores: { intuitive: 1, process: 1 },
+              scores: { intuitive: 2, process: 2 },
               accent: "accent-red",
             },
             {
               text: "Research what similar creators have done successfully",
-              scores: { systematic: 1, outcome: 1 },
+              scores: { systematic: 2, outcome: 2 },
               accent: "accent-blue",
             },
             {
               text: "Trust your instincts but plan the final result",
-              scores: { intuitive: 1, outcome: 1 },
+              scores: { intuitive: 2, outcome: 2 },
               accent: "accent-yellow",
             },
             {
               text: "Create a detailed methodology and timeline",
-              scores: { systematic: 1, process: 1 },
+              scores: { systematic: 2, process: 2 },
               accent: "accent-green",
             },
           ],
@@ -1039,101 +1039,101 @@
           options: [
             {
               text: "Organized chaos where you can see everything",
-              scores: { personal: 1, intuitive: 1 },
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
               text: "Clean, systematic setup optimized for efficiency",
-              scores: { universal: 1, systematic: 1 },
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
             {
               text: "Comfortable space filled with personal meaning",
-              scores: { personal: 1, process: 1 },
+              scores: { personal: 2, process: 1 },
               accent: "accent-green",
             },
             {
               text: "Professional setup that could inspire anyone",
-              scores: { universal: 1, outcome: 1 },
+              scores: { universal: 2, outcome: 1 },
               accent: "accent-yellow",
             },
           ],
         },
         {
           id: 3,
-          title: "When you encounter a creative problem, you prefer to:",
+          title: "When facing creative constraints or limitations, you:",
           options: [
             {
-              text: "Experiment until something clicks",
-              scores: { intuitive: 1, process: 1 },
+              text: "See them as fuel for innovation and discovery",
+              scores: { intuitive: 1, process: 2 },
               accent: "accent-red",
             },
             {
-              text: "Apply proven methods and refine",
-              scores: { systematic: 1, outcome: 1 },
+              text: "Work systematically to find the optimal solution",
+              scores: { systematic: 1, outcome: 2 },
               accent: "accent-blue",
             },
             {
-              text: "Trust your gut but research the solution",
-              scores: { intuitive: 1, outcome: 1 },
+              text: "Use intuition to transform them into opportunities",
+              scores: { intuitive: 2, outcome: 1 },
               accent: "accent-yellow",
             },
             {
-              text: "Develop a systematic approach you can reuse",
-              scores: { systematic: 1, process: 1 },
+              text: "Build frameworks to turn constraints into advantages",
+              scores: { systematic: 2, process: 1 },
               accent: "accent-green",
             },
           ],
         },
         {
           id: 4,
-          title: "Your relationship to creative 'mistakes' is:",
+          title: "The creative work that energizes you most:",
           options: [
             {
-              text: "They're where the real discoveries happen",
-              scores: { personal: 1, process: 1 },
+              text: "Helps you discover something new about yourself",
+              scores: { personal: 1, process: 2 },
               accent: "accent-green",
             },
             {
-              text: "They're learning opportunities toward better outcomes",
-              scores: { universal: 1, outcome: 1 },
+              text: "Creates meaningful change for many people",
+              scores: { universal: 1, outcome: 2 },
               accent: "accent-yellow",
             },
             {
-              text: "They're part of authentic expression",
-              scores: { personal: 1, intuitive: 1 },
+              text: "Expresses your authentic perspective",
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
-              text: "They're data points for improving your system",
-              scores: { universal: 1, systematic: 1 },
+              text: "Builds systems that enable others to create",
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
           ],
         },
         {
           id: 5,
-          title: "You're most energized by creative work that:",
+          title: "Your relationship to creative 'mistakes' is:",
           options: [
             {
-              text: "Helps you understand yourself better",
-              scores: { personal: 1, process: 1 },
-              accent: "accent-green",
-            },
-            {
-              text: "Solves problems for many people",
-              scores: { universal: 1, outcome: 1 },
-              accent: "accent-yellow",
-            },
-            {
-              text: "Expresses something only you can say",
-              scores: { personal: 1, intuitive: 1 },
+              text: "They're the most interesting part of the journey",
+              scores: { personal: 1, process: 1, intuitive: 1 },
               accent: "accent-red",
             },
             {
-              text: "Creates frameworks others can build on",
-              scores: { universal: 1, systematic: 1 },
+              text: "They're valuable data for improving outcomes",
+              scores: { universal: 1, outcome: 1, systematic: 1 },
               accent: "accent-blue",
+            },
+            {
+              text: "They often lead to breakthrough insights",
+              scores: { personal: 1, outcome: 1, intuitive: 1 },
+              accent: "accent-yellow",
+            },
+            {
+              text: "They reveal better methods for next time",
+              scores: { universal: 1, process: 1, systematic: 1 },
+              accent: "accent-green",
             },
           ],
         },
@@ -1142,24 +1142,24 @@
           title: "When sharing work-in-progress, you prefer:",
           options: [
             {
-              text: "Showing close friends who understand your process",
-              scores: { personal: 1, process: 1 },
-              accent: "accent-green",
-            },
-            {
-              text: "Getting feedback from your target audience",
-              scores: { universal: 1, outcome: 1 },
-              accent: "accent-yellow",
-            },
-            {
-              text: "Sharing when it feels authentic to you",
-              scores: { personal: 1, intuitive: 1 },
+              text: "Intimate feedback from those who understand your vision",
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
-              text: "Testing with people who can improve your method",
-              scores: { universal: 1, systematic: 1 },
+              text: "Structured critique from diverse perspectives",
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
+            },
+            {
+              text: "Showing close collaborators your process discoveries",
+              scores: { personal: 2, process: 1 },
+              accent: "accent-green",
+            },
+            {
+              text: "Testing with your intended audience",
+              scores: { universal: 2, outcome: 1 },
+              accent: "accent-yellow",
             },
           ],
         },
@@ -1168,23 +1168,23 @@
           title: "Your ideal creative legacy would be:",
           options: [
             {
-              text: "Work that speaks deeply to specific people",
-              scores: { personal: 1, outcome: 1 },
+              text: "Authentic work that deeply moves specific people",
+              scores: { personal: 1, intuitive: 1, outcome: 1 },
               accent: "accent-yellow",
             },
             {
-              text: "Methods that help many others create",
-              scores: { universal: 1, process: 1 },
-              accent: "accent-blue",
-            },
-            {
-              text: "Honest documentation of your personal journey",
-              scores: { personal: 1, process: 1 },
+              text: "Methods and frameworks that help others create",
+              scores: { universal: 1, systematic: 1, process: 1 },
               accent: "accent-green",
             },
             {
-              text: "Timeless solutions still used years later",
-              scores: { universal: 1, outcome: 1 },
+              text: "Honest documentation of your creative journey",
+              scores: { personal: 1, intuitive: 1, process: 1 },
+              accent: "accent-red",
+            },
+            {
+              text: "Timeless solutions that solve real problems",
+              scores: { universal: 1, systematic: 1, outcome: 1 },
               accent: "accent-blue",
             },
           ],
@@ -1194,101 +1194,101 @@
           title: "You're most satisfied when your creative work:",
           options: [
             {
-              text: "Surprises even you",
-              scores: { intuitive: 1, process: 1 },
+              text: "Surprises even you with unexpected discoveries",
+              scores: { intuitive: 1, process: 2 },
               accent: "accent-red",
             },
             {
-              text: "Achieves its intended impact",
-              scores: { systematic: 1, outcome: 1 },
+              text: "Achieves the impact you designed it to have",
+              scores: { systematic: 1, outcome: 2 },
               accent: "accent-blue",
             },
             {
-              text: "Feels completely authentic",
-              scores: { personal: 1, intuitive: 1 },
+              text: "Feels completely true to who you are",
+              scores: { intuitive: 2, personal: 1 },
               accent: "accent-red",
             },
             {
-              text: "Contributes to something larger",
-              scores: { universal: 1, systematic: 1 },
+              text: "Contributes to something larger than yourself",
+              scores: { systematic: 2, universal: 1 },
               accent: "accent-blue",
             },
           ],
         },
         {
           id: 9,
-          title: "Your approach to creative inspiration is:",
+          title: "Your approach to finding creative inspiration:",
           options: [
             {
-              text: "Stay open and let it find you",
-              scores: { personal: 1, intuitive: 1 },
+              text: "Stay open and let it emerge naturally from life",
+              scores: { personal: 1, intuitive: 2 },
               accent: "accent-red",
             },
             {
               text: "Systematically expose yourself to new inputs",
-              scores: { universal: 1, systematic: 1 },
+              scores: { universal: 1, systematic: 2 },
               accent: "accent-blue",
             },
             {
-              text: "Focus on your personal experiences and reactions",
-              scores: { personal: 1, process: 1 },
+              text: "Dive deep into your personal experiences and reactions",
+              scores: { personal: 2, process: 1 },
               accent: "accent-green",
             },
             {
               text: "Study what resonates with your intended audience",
-              scores: { universal: 1, outcome: 1 },
+              scores: { universal: 2, outcome: 1 },
               accent: "accent-yellow",
             },
           ],
         },
         {
           id: 10,
-          title: "When collaborating, you prefer:",
+          title: "In collaborative creative work, you prefer to:",
           options: [
             {
-              text: "Working with people who share your vision",
-              scores: { personal: 1, outcome: 1 },
+              text: "Bring your unique perspective to complement others",
+              scores: { personal: 1, outcome: 2 },
               accent: "accent-yellow",
             },
             {
-              text: "Building systems that help the team create",
-              scores: { universal: 1, process: 1 },
-              accent: "accent-blue",
+              text: "Design systems that help the whole team succeed",
+              scores: { universal: 1, process: 2 },
+              accent: "accent-green",
             },
             {
-              text: "Bringing your authentic perspective to the mix",
-              scores: { personal: 1, intuitive: 1 },
+              text: "Contribute authentic insights from your experience",
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
-              text: "Contributing skills that serve the larger goal",
-              scores: { universal: 1, systematic: 1 },
+              text: "Apply your skills to serve the collective vision",
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
           ],
         },
         {
           id: 11,
-          title: "You judge creative success primarily by:",
+          title: "You judge the success of creative work primarily by:",
           options: [
             {
-              text: "How true it feels to your vision",
-              scores: { personal: 1, intuitive: 1 },
+              text: "How authentically it represents your vision",
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
-              text: "How effectively it serves its purpose",
-              scores: { universal: 1, systematic: 1 },
+              text: "How effectively it serves its intended purpose",
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
             {
-              text: "How much you learned making it",
-              scores: { personal: 1, process: 1 },
+              text: "How much you learned and grew through making it",
+              scores: { personal: 2, process: 1 },
               accent: "accent-green",
             },
             {
-              text: "How well it connects with its intended audience",
-              scores: { universal: 1, outcome: 1 },
+              text: "How well it connects with and serves others",
+              scores: { universal: 2, outcome: 1 },
               accent: "accent-yellow",
             },
           ],
@@ -1298,127 +1298,127 @@
           title: "Your ideal creative pace is:",
           options: [
             {
-              text: "Following natural rhythms and energy",
-              scores: { intuitive: 1, process: 1 },
+              text: "Following natural rhythms and energy cycles",
+              scores: { intuitive: 2, process: 1 },
               accent: "accent-red",
             },
             {
-              text: "Steady progress toward defined goals",
-              scores: { systematic: 1, outcome: 1 },
+              text: "Steady, consistent progress toward defined goals",
+              scores: { systematic: 2, outcome: 1 },
               accent: "accent-blue",
             },
             {
-              text: "Organic development with planned milestones",
-              scores: { intuitive: 1, outcome: 1 },
+              text: "Organic development with intuitive breakthroughs",
+              scores: { intuitive: 1, outcome: 2 },
               accent: "accent-yellow",
             },
             {
               text: "Systematic exploration with built-in iteration",
-              scores: { systematic: 1, process: 1 },
+              scores: { systematic: 1, process: 2 },
               accent: "accent-green",
             },
           ],
         },
         {
           id: 13,
-          title: "You prefer creative feedback that:",
+          title: "The kind of creative feedback you find most valuable:",
           options: [
             {
-              text: "Helps you understand your own intentions better",
-              scores: { personal: 1, process: 1 },
+              text: "Helps you understand your own process better",
+              scores: { personal: 1, process: 2 },
               accent: "accent-green",
             },
             {
-              text: "Confirms your work serves its purpose",
-              scores: { universal: 1, outcome: 1 },
+              text: "Confirms your work achieves its intended impact",
+              scores: { universal: 1, outcome: 2 },
               accent: "accent-yellow",
             },
             {
-              text: "Validates your authentic expression",
-              scores: { personal: 1, intuitive: 1 },
+              text: "Validates the authenticity of your expression",
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
               text: "Improves your systematic approach",
-              scores: { universal: 1, systematic: 1 },
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
           ],
         },
         {
           id: 14,
-          title: "Your ideal audience for your work is:",
+          title: "Your ideal audience for your creative work:",
           options: [
             {
-              text: "People who deeply understand your personal perspective",
-              scores: { personal: 1, intuitive: 1 },
+              text: "People who deeply resonate with your personal perspective",
+              scores: { personal: 1, intuitive: 2 },
               accent: "accent-red",
             },
             {
-              text: "Anyone who could benefit from what you're exploring",
-              scores: { universal: 1, process: 1 },
-              accent: "accent-blue",
+              text: "Anyone who could benefit from your systematic approach",
+              scores: { universal: 1, process: 2 },
+              accent: "accent-green",
             },
             {
               text: "A specific community that shares your values",
-              scores: { personal: 1, outcome: 1 },
+              scores: { personal: 2, outcome: 1 },
               accent: "accent-yellow",
             },
             {
-              text: "The broadest possible group who needs this solution",
-              scores: { universal: 1, systematic: 1 },
+              text: "The broadest group who needs this solution",
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
           ],
         },
         {
           id: 15,
-          title: "When your creative work is 'done,' it typically:",
+          title: "When your creative work feels 'complete,' it typically:",
           options: [
             {
-              text: "Feels like it's captured something true about your experience",
-              scores: { personal: 1, outcome: 1 },
+              text: "Captures something true about your personal experience",
+              scores: { personal: 1, outcome: 2 },
               accent: "accent-yellow",
             },
             {
-              text: "Provides a useful framework others can apply",
-              scores: { universal: 1, process: 1 },
-              accent: "accent-blue",
-            },
-            {
-              text: "Represents where you were in that moment",
-              scores: { personal: 1, process: 1 },
+              text: "Provides a framework others can build upon",
+              scores: { universal: 1, process: 2 },
               accent: "accent-green",
             },
             {
-              text: "Solves the problem it was designed to address",
-              scores: { universal: 1, outcome: 1 },
-              accent: "accent-blue",
+              text: "Honestly represents where you were in that moment",
+              scores: { personal: 2, process: 1 },
+              accent: "accent-green",
+            },
+            {
+              text: "Successfully solves the problem it was designed to address",
+              scores: { universal: 2, outcome: 1 },
+              accent: "accent-yellow",
             },
           ],
         },
         {
           id: 16,
-          title: "Your relationship to creative trends is:",
+          title: "Your relationship to creative trends and movements:",
           options: [
             {
-              text: "You follow your own path regardless",
-              scores: { personal: 1, intuitive: 1 },
+              text: "You follow your own authentic path regardless",
+              scores: { personal: 2, intuitive: 1 },
               accent: "accent-red",
             },
             {
               text: "You study them to understand broader patterns",
-              scores: { universal: 1, systematic: 1 },
+              scores: { universal: 2, systematic: 1 },
               accent: "accent-blue",
             },
             {
-              text: "You engage when they serve your exploration",
-              scores: { personal: 1, process: 1 },
+              text: "You engage when they serve your personal exploration",
+              scores: { personal: 1, process: 2 },
               accent: "accent-green",
             },
             {
               text: "You consider how they affect your work's reception",
-              scores: { universal: 1, outcome: 1 },
+              scores: { universal: 1, outcome: 2 },
               accent: "accent-yellow",
             },
           ],
@@ -1430,7 +1430,7 @@
           name: "THE EXPLORER",
           tagline: '"Following the thread"',
           accent: "accent-red",
-          rarity: "15%",
+          rarity: "12.5%",
           examples: "Alice Neel, Tom Waits, Miranda July, David Lynch",
           description: `You find meaning in the process itself. You're drawn to authentic personal discovery through making, similar to how Alice Neel and David Lynch approached their work.
 
@@ -1442,7 +1442,7 @@ You're energized by work that helps you understand yourself better, and you pref
           name: "THE DOCUMENTARIAN",
           tagline: '"Capturing authentic moments"',
           accent: "accent-yellow",
-          rarity: "12%",
+          rarity: "12.5%",
           examples: "Nan Goldin, Anthony Bourdain, Patti Smith, Spike Jonze",
           description: `You share personal truth through polished work. You intuitively capture real experience and craft it for impact, similar to how Nan Goldin and Anthony Bourdain approached their work.
 
@@ -1454,7 +1454,7 @@ You're most satisfied when your work feels completely authentic while achieving 
           name: "THE RESEARCHER",
           tagline: '"Deep personal inquiry"',
           accent: "accent-green",
-          rarity: "10%",
+          rarity: "12.5%",
           examples: "Sol LeWitt, Jenny Holzer, Ira Glass, David Foster Wallace",
           description: `You methodically explore personal obsessions. Like Sol LeWitt and Ira Glass, you build systematic frameworks for self-understanding.
 
@@ -1466,7 +1466,7 @@ You judge success by how much you learned in the process, and you're energized b
           name: "THE CRAFTSPERSON",
           tagline: '"Perfecting personal vision"',
           accent: "accent-blue",
-          rarity: "18%",
+          rarity: "12.5%",
           examples:
             "Georgia O'Keeffe, Hayao Miyazaki, Wes Anderson, Annie Leibovitz",
           description: `You methodically refine distinctive personal aesthetics through systematic development of your unique perspective. Your approach combines structured methodology with deeply personal vision.
@@ -1479,7 +1479,7 @@ You're most satisfied when your work feels completely authentic and achieves its
           name: "THE EMPATHIST",
           tagline: '"Feeling what others need"',
           accent: "accent-red",
-          rarity: "20%",
+          rarity: "12.5%",
           examples:
             "Mr. Rogers, Maya Angelou, Pixar storytellers, therapeutic artists",
           description: `You intuitively understand collective needs. Like Mr. Rogers and Maya Angelou, you sense what people need and explore how to provide it.
@@ -1492,7 +1492,7 @@ You're energized by work that helps many people, and you prefer sharing with any
           name: "THE TRANSLATOR",
           tagline: '"Making the complex accessible"',
           accent: "accent-yellow",
-          rarity: "8%",
+          rarity: "12.5%",
           examples: "David Byrne, Neil deGrasse Tyson, Radiolab, Tim Burton",
           description: `You intuitively communicate big ideas through polished work. Like David Byrne and Neil deGrasse Tyson, you feel complex truths and craft them for wide understanding.
 
@@ -1503,8 +1503,8 @@ You're most satisfied when your work achieves its intended impact, and you judge
         "universal-systematic-process": {
           name: "THE STRATEGIST",
           tagline: '"Building frameworks for change"',
-          accent: "accent-blue",
-          rarity: "7%",
+          accent: "accent-green",
+          rarity: "12.5%",
           examples:
             "Buckminster Fuller, Jane Jacobs, early Wikipedia contributors, systems designers",
           description: `You systematically create tools and frameworks others can use. Like Buckminster Fuller and Jane Jacobs, you build reusable systems for creative and social change.
@@ -1517,7 +1517,7 @@ You're energized by creating frameworks others can build on, and you prefer test
           name: "THE ARCHITECT",
           tagline: '"Designing timeless solutions"',
           accent: "accent-blue",
-          rarity: "10%",
+          rarity: "12.5%",
           examples: "Dieter Rams, Tadao Ando, Steve Jobs, Massimo Vignelli",
           description: `You systematically create enduring, widely resonant work. Like Dieter Rams and Steve Jobs, you seek universal principles and design solutions that stand the test of time.
 
@@ -1790,12 +1790,36 @@ You're most satisfied when your work achieves its intended impact, and you judge
           const chartWidth = chart.offsetWidth;
           const chartHeight = chart.offsetHeight;
 
-          // Calculate position based on scores
-          const xPercent = isIntuitive ? 25 : 75;
-          const yPercent = isProcess ? 75 : 25;
+          // Calculate ACTUAL positioning based on score ratios
+          // X-axis: Intuitive (left) vs Systematic (right)
+          const totalHorizontal = scores.intuitive + scores.systematic;
+          const systematicRatio =
+            totalHorizontal > 0 ? scores.systematic / totalHorizontal : 0.5;
+
+          // Y-axis: Process (bottom) vs Outcome (top)
+          const totalVertical = scores.process + scores.outcome;
+          const outcomeRatio =
+            totalVertical > 0 ? scores.outcome / totalVertical : 0.5;
+
+          // Convert to percentages (15-85% range to stay away from edges)
+          const xPercent = 15 + systematicRatio * 70; // 15% to 85%
+          const yPercent = 85 - outcomeRatio * 70; // 85% to 15% (inverted for screen coords)
 
           const x = (chartWidth * xPercent) / 100;
           const y = (chartHeight * yPercent) / 100;
+
+          // Debug logging
+          console.log(
+            `Scores - Intuitive: ${scores.intuitive}, Systematic: ${scores.systematic}, Process: ${scores.process}, Outcome: ${scores.outcome}`
+          );
+          console.log(
+            `Ratios - Systematic: ${systematicRatio.toFixed(
+              2
+            )}, Outcome: ${outcomeRatio.toFixed(2)}`
+          );
+          console.log(
+            `Position - X: ${xPercent.toFixed(1)}%, Y: ${yPercent.toFixed(1)}%`
+          );
 
           dot.style.left = x + "px";
           dot.style.top = y + "px";
@@ -1810,21 +1834,36 @@ You're most satisfied when your work achieves its intended impact, and you judge
           const chartHeight = chart.offsetHeight;
           const chartWidth = chart.offsetWidth;
 
+          // Calculate ACTUAL positioning based on score ratio
+          const totalScope = scores.personal + scores.universal;
+          const personalRatio =
+            totalScope > 0 ? scores.personal / totalScope : 0.5;
+
           // Check if we're on mobile (horizontal chart)
           const isMobile = window.innerWidth <= 768;
 
           if (isMobile) {
-            // Horizontal positioning for mobile
-            const xPercent = isPersonal ? 75 : 25;
+            // Horizontal positioning for mobile (15-85% range)
+            const xPercent = 15 + personalRatio * 70;
             const x = (chartWidth * xPercent) / 100;
             indicator.style.left = x + "px";
             indicator.style.top = "50%";
+            console.log(
+              `Mobile Scope - Personal ratio: ${personalRatio.toFixed(
+                2
+              )}, X: ${xPercent.toFixed(1)}%`
+            );
           } else {
-            // Vertical positioning for desktop
-            const yPercent = isPersonal ? 75 : 25;
+            // Vertical positioning for desktop (15-85% range, inverted)
+            const yPercent = 85 - personalRatio * 70; // Higher personal score = lower on chart
             const y = (chartHeight * yPercent) / 100;
             indicator.style.top = y + "px";
             indicator.style.left = "50%";
+            console.log(
+              `Desktop Scope - Personal ratio: ${personalRatio.toFixed(
+                2
+              )}, Y: ${yPercent.toFixed(1)}%`
+            );
           }
         }, 100);
       }
