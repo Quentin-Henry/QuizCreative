@@ -101,7 +101,7 @@
         height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
         padding: var(--space-xl);
       }
@@ -123,7 +123,6 @@
         font-size: var(--text-lg);
         color: var(--gray-600);
         font-weight: 300;
-        margin-bottom: var(--space-2xl);
       }
 
       /* Progress indicator - full viewport width */
@@ -805,6 +804,70 @@
           width: 250px; /* Slightly smaller to match */
         }
       }
+
+      /* Interactive Background Styles */
+      .quiz-start-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 280px;
+        height: 280px;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: var(--gray-100);
+        margin: 0 auto var(--space-lg);
+        border: 1px solid var(--gray-200);
+      }
+
+      .quiz-start-container:hover {
+        transform: scale(1.02);
+      }
+
+      .quiz-start-container:hover .pixel {
+        transform: scale(
+          1.02
+        ); /* Scale pixels slightly more to maintain coverage */
+      }
+      .gradient-canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .pixel-grid {
+        display: grid;
+        gap: 0;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+        grid-template-columns: repeat(20, 1fr);
+        grid-template-rows: repeat(20, 1fr);
+        line-height: 0; /* Prevents text spacing issues */
+        font-size: 0; /* Eliminates inline spacing */
+      }
+
+      .pixel {
+        background: var(--gray-200);
+        transition: all 0.2s ease;
+        border: none; /* Ensure no borders */
+        outline: none; /* Remove any outlines */
+        display: block; /* Ensure block display */
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 768px) {
+        .quiz-start-container {
+          width: 240px;
+          height: 240px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -814,34 +877,15 @@
         <div class="header">
           <h1 class="title">What's Your Creative Personality?</h1>
           <p class="subtitle">
-            A systematic approach to understanding your creative process
+            16 questions to understand your creative process
           </p>
         </div>
 
         <div style="text-align: center; margin: var(--space-2xl) 0">
-          <div
-            style="
-              width: 120px;
-              height: 80px;
-              background: var(--gray-200);
-              margin: 0 auto var(--space-lg);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-family: monospace;
-              font-size: var(--text-xs);
-              color: var(--gray-500);
-            "
-          >
-            [PIXEL ART]
+          <div class="quiz-start-container" id="quizStartButton">
+            <canvas class="gradient-canvas" id="gradientCanvas"></canvas>
+            <div class="pixel-grid" id="pixelGrid"></div>
           </div>
-          <button class="button" onclick="startQuiz()">
-            <svg class="button-arrow" viewBox="0 0 24 24">
-              <path
-                d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
-              />
-            </svg>
-          </button>
         </div>
 
         <div class="footer">
@@ -1549,6 +1593,18 @@
       function startQuiz() {
         document.getElementById("intro-screen").classList.add("hidden");
         document.getElementById("quiz-screen").classList.remove("hidden");
+
+        const introScreen = document.getElementById("intro-screen");
+        const quizScreen = document.getElementById("quiz-screen");
+
+        console.log("startQuiz called");
+        console.log("Intro screen exists:", !!introScreen);
+        console.log("Quiz screen exists:", !!quizScreen);
+
+        if (!introScreen || !quizScreen) {
+          console.error("Required elements not found!");
+          return;
+        }
         document.body.classList.remove("results-active");
         document.body.style.overflow = "hidden";
 
@@ -1975,7 +2031,8 @@
 
       // Initialize on load
       document.addEventListener("DOMContentLoaded", () => {
-        // Any initialization code can go here
+        // Initialize interactive background
+        quizStartButton = new QuizStartButton();
       });
 
       // TESTING FUNCTION: Add this to your existing code to check balance
@@ -2063,6 +2120,332 @@
 
         return testScores;
       }
+
+      // Interactive Background Class
+      class QuizStartButton {
+        constructor() {
+          this.canvas = document.getElementById("gradientCanvas");
+          this.ctx = this.canvas.getContext("2d");
+          this.grid = document.getElementById("pixelGrid");
+          this.container = document.getElementById("quizStartButton");
+          this.pixels = [];
+          this.gridSize = 20;
+
+          // Fixed settings for consistent look
+          this.gradientWidth = 1.8;
+          this.gradientHeight = 1.8;
+          this.gradientIntensity = 0.7;
+
+          // Centered gradient position
+          this.centerX = 0.5;
+          this.centerY = 0.5;
+
+          // Mouse tracking properties
+          this.mouseX = 0.5;
+          this.mouseY = 0.5;
+          this.targetX = 0.5;
+          this.targetY = 0.5;
+          this.mouseSensitivity = 0.8;
+          this.mouseSmoothing = 0.08;
+
+          // Generate random colors on load
+          this.generateRandomColors();
+
+          this.init();
+        }
+
+        init() {
+          this.setupCanvas();
+          this.createGrid();
+          this.bindEvents();
+          this.startMouseTracking();
+          this.generate();
+        }
+
+        generateRandomColors() {
+          this.customPalette = [];
+          for (let i = 0; i < 4; i++) {
+            let color;
+            if (i === 3 && Math.random() < 0.3) {
+              color = "#ffffff";
+            } else {
+              const hue = Math.random() * 360;
+              const saturation = 60 + Math.random() * 40;
+              const lightness = 35 + Math.random() * 30;
+              color = this.hslToHex(hue, saturation, lightness);
+            }
+            this.customPalette.push(color);
+          }
+        }
+
+        setupCanvas() {
+          const container = this.container;
+          const size = Math.min(container.offsetWidth, container.offsetHeight);
+
+          this.canvas.width = size;
+          this.canvas.height = size;
+          this.canvas.style.width = size + "px";
+          this.canvas.style.height = size + "px";
+        }
+
+        createGrid() {
+          this.grid.innerHTML = "";
+          this.pixels = [];
+
+          const totalCells = this.gridSize * this.gridSize;
+          for (let i = 0; i < totalCells; i++) {
+            const pixel = document.createElement("div");
+            pixel.className = "pixel";
+            pixel.dataset.index = i;
+            pixel.dataset.x = i % this.gridSize;
+            pixel.dataset.y = Math.floor(i / this.gridSize);
+            this.grid.appendChild(pixel);
+            this.pixels.push(pixel);
+          }
+        }
+
+        startMouseTracking() {
+          this.container.addEventListener("mousemove", (e) => {
+            const rect = this.container.getBoundingClientRect();
+            const containerX = (e.clientX - rect.left) / rect.width;
+            const containerY = (e.clientY - rect.top) / rect.height;
+
+            this.targetX = Math.max(0, Math.min(1, containerX));
+            this.targetY = Math.max(0, Math.min(1, containerY));
+          });
+
+          this.container.addEventListener("mouseleave", () => {
+            this.targetX = 0.5;
+            this.targetY = 0.5;
+          });
+
+          this.container.addEventListener("click", () => {
+            this.onQuizStart();
+          });
+
+          this.updateMousePosition();
+        }
+
+        updateMousePosition() {
+          // Stop animation if container is hidden
+          if (!this.container.offsetParent) {
+            return;
+          }
+
+          this.mouseX += (this.targetX - this.mouseX) * this.mouseSmoothing;
+          this.mouseY += (this.targetY - this.mouseY) * this.mouseSmoothing;
+
+          this.createGradient();
+          this.sampleAndApply();
+
+          requestAnimationFrame(() => this.updateMousePosition());
+        }
+
+        bindEvents() {
+          window.addEventListener("resize", () => {
+            this.setupCanvas();
+            this.generate();
+          });
+        }
+
+        generate() {
+          this.createGradient();
+          this.sampleAndApply();
+        }
+
+        createGradient() {
+          const size = this.canvas.width;
+          this.ctx.clearRect(0, 0, size, size);
+          this.createDiamondGradient(size);
+        }
+
+        createDiamondGradient(size) {
+          if (size <= 0 || !this.canvas.offsetParent) {
+            return;
+          }
+          const centerX =
+            size * (this.centerX + (this.mouseX - 0.5) * this.mouseSensitivity);
+          const centerY =
+            size * (this.centerY + (this.mouseY - 0.5) * this.mouseSensitivity);
+
+          const imageData = this.ctx.createImageData(size, size);
+          const data = imageData.data;
+
+          for (let x = 0; x < size; x++) {
+            for (let y = 0; y < size; y++) {
+              const dx =
+                Math.abs(x - centerX) / (size * 0.5 * this.gradientWidth);
+              const dy =
+                Math.abs(y - centerY) / (size * 0.5 * this.gradientHeight);
+              const distance = Math.max(dx, dy);
+
+              const color = this.getColorAtDistance(distance);
+              const index = (y * size + x) * 4;
+
+              data[index] = color.r;
+              data[index + 1] = color.g;
+              data[index + 2] = color.b;
+              data[index + 3] = color.a;
+            }
+          }
+
+          this.ctx.putImageData(imageData, 0, 0);
+        }
+
+        getColorAtDistance(distance) {
+          const clampedDistance = Math.min(distance, 1);
+          const baseColors = this.customPalette.slice(0, 3);
+
+          const colorPosition = clampedDistance * (baseColors.length - 1);
+          const colorIndex = Math.floor(colorPosition);
+          const nextColorIndex = Math.min(
+            colorIndex + 1,
+            baseColors.length - 1
+          );
+          const localPosition = colorPosition - colorIndex;
+
+          const baseColor = this.interpolateColors(
+            baseColors[colorIndex],
+            baseColors[nextColorIndex],
+            localPosition
+          );
+
+          const vibrancyCurve =
+            Math.sin(clampedDistance * Math.PI * 2) * 0.5 + 0.5;
+          const vibrancy = 0.3 + vibrancyCurve * this.gradientIntensity * 0.7;
+
+          const rgb = this.hexToRgb(baseColor);
+          const mutedRgb = this.createMutedVersionRgb(rgb, vibrancy);
+
+          return {
+            r: mutedRgb.r,
+            g: mutedRgb.g,
+            b: mutedRgb.b,
+            a: Math.round(255 * (0.4 + vibrancy * 0.6)),
+          };
+        }
+
+        interpolateColors(color1, color2, position) {
+          const rgb1 = this.hexToRgb(color1);
+          const rgb2 = this.hexToRgb(color2);
+
+          if (!rgb1 || !rgb2) return color1;
+
+          const r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * position);
+          const g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * position);
+          const b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * position);
+
+          return `#${r.toString(16).padStart(2, "0")}${g
+            .toString(16)
+            .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+        }
+
+        hexToRgb(hex) {
+          const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+          return result
+            ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16),
+              }
+            : null;
+        }
+
+        hslToHex(h, s, l) {
+          l /= 100;
+          const a = (s * Math.min(l, 1 - l)) / 100;
+          const f = (n) => {
+            const k = (n + h / 30) % 12;
+            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            return Math.round(255 * color)
+              .toString(16)
+              .padStart(2, "0");
+          };
+          return `#${f(0)}${f(8)}${f(4)}`;
+        }
+
+        createMutedVersionRgb(rgb, vibrancy) {
+          if (!rgb) return { r: 204, g: 204, b: 204 };
+          const whiteMix = (1 - vibrancy) * 0.6;
+          return {
+            r: Math.round(rgb.r * (1 - whiteMix) + 255 * whiteMix),
+            g: Math.round(rgb.g * (1 - whiteMix) + 255 * whiteMix),
+            b: Math.round(rgb.b * (1 - whiteMix) + 255 * whiteMix),
+          };
+        }
+
+        sampleAndApply() {
+          const size = this.canvas.width;
+          const cellSize = size / this.gridSize;
+
+          this.pixels.forEach((pixel) => {
+            const x = parseInt(pixel.dataset.x);
+            const y = parseInt(pixel.dataset.y);
+
+            const startX = Math.floor(x * cellSize);
+            const startY = Math.floor(y * cellSize);
+            const endX = Math.floor((x + 1) * cellSize);
+            const endY = Math.floor((y + 1) * cellSize);
+
+            const sampledColor = this.averageColorInRegion(
+              startX,
+              startY,
+              endX,
+              endY
+            );
+            pixel.style.backgroundColor = sampledColor;
+          });
+        }
+
+        averageColorInRegion(startX, startY, endX, endY) {
+          const width = endX - startX;
+          const height = endY - startY;
+
+          if (width <= 0 || height <= 0) return "#cccccc";
+
+          const imageData = this.ctx.getImageData(
+            startX,
+            startY,
+            width,
+            height
+          );
+          const data = imageData.data;
+
+          let totalR = 0,
+            totalG = 0,
+            totalB = 0;
+          let pixelCount = 0;
+
+          for (let i = 0; i < data.length; i += 4) {
+            totalR += data[i];
+            totalG += data[i + 1];
+            totalB += data[i + 2];
+            pixelCount++;
+          }
+
+          if (pixelCount === 0) return "#cccccc";
+
+          const avgR = Math.round(totalR / pixelCount);
+          const avgG = Math.round(totalG / pixelCount);
+          const avgB = Math.round(totalB / pixelCount);
+
+          return `rgb(${avgR}, ${avgG}, ${avgB})`;
+        }
+
+        onQuizStart() {
+          // Add visual feedback
+          this.container.style.transform = "scale(0.98)";
+          setTimeout(() => {
+            this.container.style.transform = "scale(1.02)";
+          }, 100);
+
+          // Call the existing startQuiz function
+          startQuiz();
+        }
+      }
+
+      // Initialize the interactive background
+      let quizStartButton;
     </script>
   </body>
 </html>
